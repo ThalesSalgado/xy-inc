@@ -3,11 +3,13 @@ package br.com.thales.xyinc.service;
 import br.com.thales.xyinc.dto.PoiDTO;
 import br.com.thales.xyinc.model.Poi;
 import br.com.thales.xyinc.repository.PoiRepository;
+import br.com.thales.xyinc.service.exception.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PoiService {
@@ -38,6 +40,12 @@ public class PoiService {
         }
 
         return listProximos;
+    }
+
+    public Poi findOne(Integer id) {
+        Optional<Poi> obj = repo.findById(id);
+        return obj.orElseThrow(() -> new ObjectNotFoundException(
+                "Objeto não encontrado! Id: " + id + ", Tipo: " + Poi.class.getName()));
     }
 
 }

@@ -1,7 +1,0 @@
---CREATE TABLE poi (
---    id bigint(20) NOT NULL AUTO_INCREMENT,
---    nome varchar(255) DEFAULT NULL,
---    x integer DEFAULT NULL,
---    y integer DEFAULT NULL,
---    PRIMARY KEY (id)
---);

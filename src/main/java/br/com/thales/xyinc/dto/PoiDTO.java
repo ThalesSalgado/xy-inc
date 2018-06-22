@@ -1,18 +1,21 @@
 package br.com.thales.xyinc.dto;
 
+import br.com.thales.xyinc.model.Poi;
+import br.com.thales.xyinc.service.validation.PoiInsert;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 
+@PoiInsert
 public class PoiDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private Integer id;
 
     @NotEmpty(message="Preenchimento obrigatório")
-    @Length(min=5, max=80, message="O tamanho deve ser entre 5 e 80 caracteres")
+    @Length(min=5, max=80, message="O nome deve ter entre 5 e 80 caracteres")
     private String nome;
 
     @Min(value=0, message="O valor precisa ser positivo")
@@ -20,6 +23,16 @@ public class PoiDTO implements Serializable {
 
     @Min(value=0, message="O valor precisa ser positivo")
     private Integer y;
+
+    public PoiDTO() {
+    }
+
+    public PoiDTO(Poi obj) {
+        id = obj.getId();
+        nome = obj.getNome();
+        x = obj.getX();
+        y = obj.getY();
+    }
 
     public Integer getId() {
         return id;

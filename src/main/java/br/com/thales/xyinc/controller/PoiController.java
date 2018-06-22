@@ -12,6 +12,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/pontos")
@@ -21,10 +22,10 @@ public class PoiController {
     private PoiService service;
 
     @GetMapping
-    public ResponseEntity<List<Poi>> findAll() {
+    public ResponseEntity<List<PoiDTO>> findAll() {
         List<Poi> list = service.findAll();
-        //List<PoiDTO> listDto = list.stream().map(obj -> new CategoriaDTO(obj)).collect(Collectors.toList());
-        return ResponseEntity.ok().body(list);
+        List<PoiDTO> listDTO = list.stream().map(obj -> new PoiDTO(obj)).collect(Collectors.toList());
+        return ResponseEntity.ok().body(listDTO);
     }
 
     @PostMapping
@@ -43,6 +44,12 @@ public class PoiController {
         List<Poi> list = service.findPontosProximos(x, y, d);
 
         return ResponseEntity.ok().body(list);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<PoiDTO> findOne(@PathVariable Integer id) {
+        PoiDTO objDTO = new PoiDTO(service.findOne(id));
+        return ResponseEntity.ok().body(objDTO);
     }
 
 }
