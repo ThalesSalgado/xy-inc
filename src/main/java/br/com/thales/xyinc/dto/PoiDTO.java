@@ -34,6 +34,13 @@ public class PoiDTO implements Serializable {
         y = obj.getY();
     }
 
+    public PoiDTO(Integer id, String nome, Integer x, Integer y) {
+        this.id = id;
+        this.nome = nome;
+        this.x = x;
+        this.y = y;
+    }
+
     public Integer getId() {
         return id;
     }
